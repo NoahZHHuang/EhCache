@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+
+
+    <!-- Please refer to ehcache-failsafe.xml under the ehcache-2.8.3.jar -->
+
+	<diskStore path="java.io.tmpdir" />
+
+
+    <!--
+    	Mandatory Default Cache configuration. These settings will be applied to caches
+    	created programmatically using CacheManager.add(String cacheName) 
+    -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+    
+
+	<!-- 
+	    #1 If CacheManager has no maxBytesLocalHeap set, either maxEntriesLocalHeap or maxBytesLocalHeap need to be set at the Cache level
+	    #2 Pay attention, above defaultCache setting only apply to programmatically added cache, so the declarative cache still need to define everything
+	-->
+	<cache 
+		name="sampleCache1"
+		maxEntriesLocalHeap="10000"
+        timeToIdleSeconds="3"
+        timeToLiveSeconds="5"
+		/>
+
+
+</ehcache>
